@@ -1,8 +1,23 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
+
+final linesRef = FirebaseFirestore.instance.collection('lines');
+int i = Random().nextInt(100);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -32,13 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             "PickUp",
-            style: (TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 30,
-            )),
+            ),
           ),
         ),
       ),
@@ -47,18 +62,34 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Expanded(
+            Expanded(
               //child: Padding(
               // padding: EdgeInsets.all(8.0),
               child: Card(
-                  child: Center(
-                child: Text('Insert Pick up Line here',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 34,
-                      color: Colors.black,
-                    )),
-              )),
+                child: Center(
+                  child: FutureBuilder<Object>(
+                      future: linesRef.get(),
+                      builder: (context, future) {
+                        // return a random line from the collection of lines or a loading indicator
+                        if (future.hasData) {
+                          final lines = (future.data as QuerySnapshot).docs;
+                          final randomLine = lines[i % lines.length];
+                          return Text(
+                            randomLine['line'],
+                            // 'This is a test line',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 34,
+                              color: Colors.black,
+                            ),
+                          );
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      }),
+                ),
+              ),
             ),
 
             // Row of tinder like dislike buttons here
@@ -77,7 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         onTap: () {
                           print('Dislike');
-                          (context as Element).reassemble();
+                          setState(() {
+                            i++;
+                            print(i);
+                          });
+                          // (context as Element).reassemble();
                           //should refresh state with new pickup line
                         },
                       ),
@@ -95,7 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap: () {
                           //should refresh state with new pickup line
                           print('Like');
-                          (context as Element).reassemble();
+                          setState(() {
+                            i++;
+                            print(i);
+                          });
                         },
                       ),
                     ),

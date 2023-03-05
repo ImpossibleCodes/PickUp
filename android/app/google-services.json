@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "602242504044",
+    "project_id": "college101-d1876",
+    "storage_bucket": "college101-d1876.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602242504044:android:eab452af8088aa3156cf49",
+        "android_client_info": {
+          "package_name": "com.example.hack_tj_23"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602242504044-e88cmp6hddqn1bedbgn5ng5a5o87lbr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBekRvG4Oo9T-3bdJD6TsBfxTBEUsVgs8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602242504044-e88cmp6hddqn1bedbgn5ng5a5o87lbr4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "602242504044-d09pil1i2a0eit198j9a1bqvq7k62837.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hackTj23"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
