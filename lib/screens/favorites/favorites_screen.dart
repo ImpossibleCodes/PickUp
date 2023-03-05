@@ -35,12 +35,12 @@ class FavoritesScreen extends StatelessWidget {
       ),
       // Scrollable list of favorite lines
       body: ListView.builder(
-        reverse: true,
-        itemCount: favoriteLines.length,
-        itemBuilder: (context, index) {
-          return FavoritesLineCard(lineID: favoriteLines[index]);
-        },
-      ),
+          // reverse: true,
+          itemCount: favoriteLines.length,
+          itemBuilder: (context, index) {
+            return FavoritesLineCard(lineID: favoriteLines[favoriteLines.length - index - 1]);
+          },
+        ),
     );
   }
 }
