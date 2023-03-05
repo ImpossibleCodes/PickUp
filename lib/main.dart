@@ -11,58 +11,59 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rizzz',
+      title: 'PickUp',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.orange,
       ),
-      home: const MyHomePage(title: 'Rizzz'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Center(
+          child: Text(
+            "PickUp",
+            style: (TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            )),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Card(
-                    child: Center(
-                  child: Text(
-                    'Insert Pick up Line here',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                )),
-              ),
+              //child: Padding(
+              // padding: EdgeInsets.all(8.0),
+              child: Card(
+                  child: Center(
+                child: Text('Insert Pick up Line here',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 34,
+                      color: Colors.black,
+                    )),
+              )),
             ),
+
             // Row of tinder like dislike buttons here
             Padding(
-              padding: const EdgeInsets.all(48),
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -70,12 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Center(
                       child: InkWell(
                         child: const Icon(
-                            Icons.close,
-                            size: 48,
-                            // color: Colors.red,
-                          ),
+                          Icons.close,
+                          color: Colors.red,
+                          size: 55,
+                        ),
                         onTap: () {
                           print('Dislike');
+                          (context as Element).reassemble();
+                          //should refresh state with new pickup line
                         },
                       ),
                     ),
@@ -84,12 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Center(
                       child: InkWell(
                         child: const Icon(
-                          Icons.favorite,
-                          size: 48,
+                          Icons.check,
+                          color: Colors.green,
+                          size: 55,
                           // color: Colors.green,
                         ),
                         onTap: () {
+                          //should refresh state with new pickup line
                           print('Like');
+                          (context as Element).reassemble();
                         },
                       ),
                     ),
