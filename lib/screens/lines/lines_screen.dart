@@ -83,6 +83,7 @@ class _LinesScreenState extends State<LinesScreen> {
                           print('Dislike');
                           setState(() {
                             i++;
+                            linesRef.doc(currentLineId).update({'dislikes': FieldValue.increment(1)});
                           });
                           // (context as Element).reassemble();
                           //should refresh state with new pickup line
@@ -103,6 +104,7 @@ class _LinesScreenState extends State<LinesScreen> {
                           setState(() {
                             i++;
                             favoriteLines.add(currentLineId);
+                            linesRef.doc(currentLineId).update({'likes': FieldValue.increment(1)});
                           });
                         },
                       ),
